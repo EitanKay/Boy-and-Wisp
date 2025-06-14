@@ -229,6 +229,7 @@ tile_set = SubResource("TileSet_hpxle")
 z_index = 1
 position = Vector2(197, 31)
 scale = Vector2(1, 1)
+stopping_acceleration = 2
 SPEED = 150.0
 JUMP_VELOCITY = -300.0
 

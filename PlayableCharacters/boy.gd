@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = min(abs(velocity.x+direction*acceleration) ,SPEED)*direction
 		animation_sprite.play("walking")
 	else:
-		velocity.x = move_toward(velocity.x, 0, acceleration)
+		velocity.x = move_toward(velocity.x, 0, stopping_acceleration)
 		animation_sprite.play("Idle")
 
 	move_and_slide()

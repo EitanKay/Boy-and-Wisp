@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://b2j5j8bopu814"]
+[gd_scene load_steps=36 format=4 uid="uid://b2j5j8bopu814"]
 
 [ext_resource type="PackedScene" uid="uid://ddkbquw28fv2n" path="res://PlayableCharacters/Boy.tscn" id="3_07ssb"]
 [ext_resource type="PackedScene" uid="uid://bay07aaixkryy" path="res://PlayableCharacters/Wisp.tscn" id="4_3ajc7"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dnqso6r1m1fx5" path="res://Items/Box.tscn" id="6_phwp5"]
 [ext_resource type="PackedScene" uid="uid://d266xdah3o45b" path="res://Items/rope/Rope.tscn" id="6_vwrm8"]
 [ext_resource type="Texture2D" uid="uid://14x86b4h6jii" path="res://assets/Tilesets/Stone.png" id="7_njc8t"]
-[ext_resource type="PackedScene" uid="uid://bieirnvcwdyk8" path="res://utils/GravityArea/ForceField.tscn" id="7_uehb1"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pk20u"]
 polygon = PackedVector2Array(-4, -4, 4, -4, 4, 0, 0.3125, 0.0625, 0.1875, 4, 0.4375, 4, -4, 4, -4, 0.375)
@@ -242,9 +241,5 @@ color = Color(0.0430392, 0.0430392, 0.0430392, 1)
 light_mask = 8
 visibility_layer = 8
 position = Vector2(274, 47)
-
-[node name="ForceField" parent="." instance=ExtResource("7_uehb1")]
-position = Vector2(95, 74)
-force_field_strength = 1000
 
 [node name="Wisp" parent="." instance=ExtResource("4_3ajc7")]

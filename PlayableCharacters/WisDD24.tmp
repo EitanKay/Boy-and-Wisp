@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://bay07aaixkryy"]
+
+[ext_resource type="Script" path="res://PlayableCharacters/wisp.gd" id="1_hwrfy"]
+[ext_resource type="Texture2D" uid="uid://wxsb0xlqw16d" path="res://assets/wisp/wisp.png" id="2_indhq"]
+[ext_resource type="Script" path="res://PlayableCharacters/point_light_2d.gd" id="3_jyqj5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c6vt5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_indhq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_35jh6"]
+radius = 8.06226
+
+[sub_resource type="Gradient" id="Gradient_2nfny"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_dx6in"]
+script/source = "# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	
+	
+"
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gvx0y"]
+gradient = SubResource("Gradient_2nfny")
+fill = 1
+fill_from = Vector2(0.5, 0.495413)
+fill_to = Vector2(0.183486, 0.885321)
+script = SubResource("GDScript_dx6in")
+
+[node name="Wisp" type="CharacterBody2D"]
+script = ExtResource("1_hwrfy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_c6vt5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_35jh6")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(10, 9.998)
+texture = SubResource("GradientTexture2D_gvx0y")
+script = ExtResource("3_jyqj5")

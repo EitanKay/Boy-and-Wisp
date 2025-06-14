@@ -1,0 +1,5 @@
+[gd_resource type="OccluderPolygon2D" format=3 uid="uid://bxsdi5hbkr0n4"]
+
+[resource]
+resource_name = "sdf"
+polygon = PackedVector2Array(0, 1, 0.5, -1, -0.5, -1)

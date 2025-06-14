@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2j5j8bopu814"]
+
+[ext_resource type="Texture2D" uid="uid://qxpyosn6rtbp" path="res://assets/background/background.png" id="1_1l1n2"]
+[ext_resource type="Texture2D" uid="uid://dwa8ns4mqpo0h" path="res://assets/background/black.png" id="2_u0q47"]
+[ext_resource type="PackedScene" uid="uid://ddkbquw28fv2n" path="res://PlayableCharacters/Boy.tscn" id="3_07ssb"]
+[ext_resource type="PackedScene" uid="uid://bay07aaixkryy" path="res://PlayableCharacters/Wisp.tscn" id="4_3ajc7"]
+[ext_resource type="PackedScene" uid="uid://b8kv5lu341v5j" path="res://utils/follow_camera.tscn" id="5_bdiiq"]
+[ext_resource type="PackedScene" uid="uid://dnqso6r1m1fx5" path="res://Items/Box.tscn" id="6_phwp5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tn7pi"]
+size = Vector2(1912, 1075)
+
+[node name="FirstLevel" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(510, 284)
+texture = ExtResource("1_1l1n2")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(506, 1032)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(3, 0.5)
+shape = SubResource("RectangleShape2D_tn7pi")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor"]
+texture = ExtResource("2_u0q47")
+
+[node name="Boy" parent="." instance=ExtResource("3_07ssb")]
+position = Vector2(593, 228)
+pickup_range = 100.0
+
+[node name="Wisp" parent="." instance=ExtResource("4_3ajc7")]
+position = Vector2(343, 195)
+motion_mode = 1
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[node name="FollowCamera" parent="." node_paths=PackedStringArray("player1", "player2") instance=ExtResource("5_bdiiq")]
+player1 = NodePath("../Boy")
+player2 = NodePath("../Wisp")
+cameraSpeed = 0.1
+
+[node name="Box" parent="." instance=ExtResource("6_phwp5")]
+position = Vector2(793, 356)

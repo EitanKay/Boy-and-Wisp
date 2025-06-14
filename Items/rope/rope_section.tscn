@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkuhjn10lahc7"]
+
+[ext_resource type="Texture2D" uid="uid://dl872fwhjnp44" path="res://assets/Items/Rope.png" id="1_82dy8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxrd4"]
+size = Vector2(2, 8)
+
+[node name="RopeSection1" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 10
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 3)
+texture = ExtResource("1_82dy8")
+region_enabled = true
+region_rect = Rect2(3.01721, 0.0706389, 1.96025, 7.9113)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_hxrd4")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_b = NodePath("..")

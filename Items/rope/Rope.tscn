@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://d266xdah3o45b"]
+
+[ext_resource type="Texture2D" uid="uid://dl872fwhjnp44" path="res://assets/Items/Rope.png" id="1_fka4x"]
+[ext_resource type="PackedScene" uid="uid://dkuhjn10lahc7" path="res://Items/rope/rope_section.tscn" id="2_ipwfd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xhbbi"]
+radius = 1.0
+
+[node name="Rope" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="RopeSection1" parent="." instance=ExtResource("2_ipwfd")]
+collision_mask = 8
+
+[node name="PinJoint2D" parent="RopeSection1" index="2"]
+node_a = NodePath("../..")
+
+[node name="RopeSection2" parent="." instance=ExtResource("2_ipwfd")]
+position = Vector2(0, 6)
+collision_mask = 8
+
+[node name="PinJoint2D" parent="RopeSection2" index="2"]
+node_a = NodePath("../../RopeSection1")
+
+[node name="RopeSection3" parent="." instance=ExtResource("2_ipwfd")]
+position = Vector2(0, 12)
+collision_mask = 8
+
+[node name="PinJoint2D" parent="RopeSection3" index="2"]
+node_a = NodePath("../../RopeSection2")
+
+[node name="RopeSection4" parent="." instance=ExtResource("2_ipwfd")]
+position = Vector2(0, 18)
+collision_mask = 8
+
+[node name="PinJoint2D" parent="RopeSection4" index="2"]
+node_a = NodePath("../../RopeSection3")
+
+[node name="RopeSection5" parent="." instance=ExtResource("2_ipwfd")]
+position = Vector2(0, 24)
+collision_mask = 8
+
+[node name="PinJoint2D" parent="RopeSection5" index="2"]
+node_a = NodePath("../../RopeSection4")
+
+[node name="RopeSection6" parent="." instance=ExtResource("2_ipwfd")]
+position = Vector2(0, 30)
+collision_mask = 8
+
+[node name="PinJoint2D" parent="RopeSection6" index="2"]
+node_a = NodePath("../../RopeSection5")
+
+[node name="RopeSection7" parent="." instance=ExtResource("2_ipwfd")]
+position = Vector2(0, 36)
+collision_mask = 8
+
+[node name="PinJoint2D" parent="RopeSection7" index="2"]
+node_a = NodePath("../../RopeSection6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fka4x")
+region_enabled = true
+region_rect = Rect2(10, 2, 4, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xhbbi")
+
+[editable path="RopeSection1"]
+[editable path="RopeSection2"]
+[editable path="RopeSection3"]
+[editable path="RopeSection4"]
+[editable path="RopeSection5"]
+[editable path="RopeSection6"]
+[editable path="RopeSection7"]

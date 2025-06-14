@@ -1,0 +1,108 @@
+[gd_scene load_steps=15 format=3 uid="uid://bay07aaixkryy"]
+
+[ext_resource type="Script" path="res://PlayableCharacters/wisp.gd" id="1_hwrfy"]
+[ext_resource type="Texture2D" uid="uid://wxsb0xlqw16d" path="res://assets/wisp/wisp.png" id="2_indhq"]
+[ext_resource type="Script" path="res://utils/pickable.gd" id="3_ajtn7"]
+[ext_resource type="Script" path="res://PlayableCharacters/physics_component.gd" id="4_k1xxv"]
+[ext_resource type="PackedScene" uid="uid://bieirnvcwdyk8" path="res://utils/GravityArea/ForceField.tscn" id="5_41tvf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qutaa"]
+atlas = ExtResource("2_indhq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i02kc"]
+atlas = ExtResource("2_indhq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okmf5"]
+atlas = ExtResource("2_indhq")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvm58"]
+atlas = ExtResource("2_indhq")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c6vt5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qutaa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i02kc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okmf5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvm58")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_35jh6"]
+radius = 3.0
+
+[sub_resource type="Gradient" id="Gradient_2nfny"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_dx6in"]
+script/source = "# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	
+	
+"
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gvx0y"]
+gradient = SubResource("Gradient_2nfny")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.825688, 0.178899)
+script = SubResource("GDScript_dx6in")
+
+[node name="Wisp" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 5
+lock_rotation = true
+linear_damp = 2.0
+script = ExtResource("1_hwrfy")
+SPEED = 200
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_c6vt5")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.485546
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_35jh6")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(10, 9.998)
+color = Color(0.968865, 0.652019, 0.544903, 1)
+energy = 3.13
+shadow_enabled = true
+shadow_filter = 1
+shadow_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_gvx0y")
+texture_scale = 0.1
+
+[node name="Pickable" type="Node2D" parent="." node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("3_ajtn7")
+collision_shape = NodePath("../CollisionShape2D")
+
+[node name="PhysicsComponent" type="Node" parent="."]
+script = ExtResource("4_k1xxv")
+
+[node name="ForceField" parent="." node_paths=PackedStringArray("exclude_body") instance=ExtResource("5_41tvf")]
+collision_layer = 8
+collision_mask = 8
+force_field_strength = 10000
+exclude_body = NodePath("..")

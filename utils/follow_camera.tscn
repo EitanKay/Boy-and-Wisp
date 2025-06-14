@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b8kv5lu341v5j"]
 
-[ext_resource type="Script" path="res://utils/follow_camera.gd" id="1_703a2"]
+[ext_resource type="Script" uid="uid://ehe3kp30ru6a" path="res://utils/follow_camera.gd" id="1_703a2"]
 
 [node name="FollowCamera" type="Camera2D"]
 position = Vector2(592, 312)

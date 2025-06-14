@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://bay07aaixkryy"]
 
-[ext_resource type="Script" path="res://PlayableCharacters/wisp.gd" id="1_hwrfy"]
+[ext_resource type="Script" uid="uid://b2d64efkkkye2" path="res://PlayableCharacters/wisp.gd" id="1_hwrfy"]
 [ext_resource type="Texture2D" uid="uid://wxsb0xlqw16d" path="res://assets/wisp/wisp.png" id="2_indhq"]
-[ext_resource type="Script" path="res://utils/pickable.gd" id="3_ajtn7"]
-[ext_resource type="Script" path="res://PlayableCharacters/physics_component.gd" id="4_k1xxv"]
+[ext_resource type="Script" uid="uid://pcl3b2hwsi4l" path="res://utils/pickable.gd" id="3_ajtn7"]
+[ext_resource type="Script" uid="uid://c4fu7qolsf66v" path="res://PlayableCharacters/physics_component.gd" id="4_k1xxv"]
 [ext_resource type="PackedScene" uid="uid://bieirnvcwdyk8" path="res://utils/GravityArea/ForceField.tscn" id="5_41tvf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qutaa"]

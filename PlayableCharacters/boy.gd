@@ -1,11 +1,15 @@
 extends CharacterBody2D
 
+class_name Boy
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
-var push_force = 80.0
+@export var acceleration := 10.0
+@export var stopping_acceleration := 20
+@export var SPEED = 100.0
+@export var JUMP_VELOCITY = -400.0
+@export var push_force := 80.0
 
 @export var pickup_range := 10  # Distance threshold
+
 @onready var interact_raycast = $InteractRaycast
 @onready var animation_sprite = $AnimatedSprite2D
 @onready var spring_joint = $DampedSpringJoint2D
@@ -25,12 +29,16 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("boy_left", "boy_right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = min(abs(velocity.x+direction*acceleration) ,SPEED)*direction
+		animation_sprite.play("walking")
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, stopping_acceleration)
+		animation_sprite.play("Idle")
 
 	move_and_slide()
 	
+
+	#player collision with object
 	# This represents the player's inertia.
 
 	for i in get_slide_collision_count():
@@ -38,7 +46,7 @@ func _physics_process(delta: float) -> void:
 		if c.get_collider() is RigidBody2D:
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
-	
+	# holding objects
 	if direction < 0:
 		animation_sprite.flip_h = true
 		interact_raycast.target_position.x = pickup_range * direction

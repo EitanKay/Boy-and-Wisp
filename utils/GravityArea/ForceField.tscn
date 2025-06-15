@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bieirnvcwdyk8"]
 
-[ext_resource type="Script" uid="uid://be5edii1vskki" path="res://utils/GravityArea/ForceField.gd" id="1_njvel"]
+[ext_resource type="Script" path="res://utils/GravityArea/ForceField.gd" id="1_njvel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bnhpm"]
 radius = 144.014

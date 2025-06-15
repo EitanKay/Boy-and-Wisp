@@ -7,12 +7,14 @@ class_name Boy
 @export var SPEED = 100.0
 @export var JUMP_VELOCITY = -400.0
 @export var push_force := 80.0
+@export var held_item_distance := 5
 
 @export var pickup_range := 10  # Distance threshold
 
 @onready var interact_raycast = $InteractRaycast
 @onready var animation_sprite = $AnimatedSprite2D
 @onready var spring_joint = $DampedSpringJoint2D
+@onready var _picker_component := $PickerComponent
 
 var held_object: RigidBody2D = null
 
@@ -46,13 +48,16 @@ func _physics_process(delta: float) -> void:
 		if c.get_collider() is RigidBody2D:
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
-	# holding objects
 	if direction < 0:
 		animation_sprite.flip_h = true
 		interact_raycast.target_position.x = pickup_range * direction
+		_picker_component.position.x = -held_item_distance
+		
 	elif direction > 0:
 		animation_sprite.flip_h = false
 		interact_raycast.target_position.x = pickup_range * direction
+		_picker_component.position.x = held_item_distance
+		
 	
 	if held_object:
 		var new_pos = global_position + Vector2(pickup_range * direction + held_object.transform.get_scale().x , 0)
@@ -68,15 +73,13 @@ func _physics_process(delta: float) -> void:
 		var obj = interact_raycast.get_collider()
 		
 		if held_object:
-			held_object.reparent(self.get_parent())
-			
+			_picker_component.drop() 
+			held_object = null
+		
 		elif obj is RigidBody2D:
 			# obj.pick_up(func(): return get_global_position())
 			held_object = obj
-			held_object.set_freeze_mode(RigidBody2D.FREEZE_MODE_KINEMATIC)
-			
-			var sprite = find_child("Sprite2D")
-			held_object.replace_by(sprite, )
+			_picker_component.pick_up(obj)
 			
 
 			

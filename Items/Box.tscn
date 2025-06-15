@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dnqso6r1m1fx5"]
 
-[ext_resource type="Script" uid="uid://tyxsbhv3rpl7" path="res://Items/box.gd" id="1_0ksjg"]
-[ext_resource type="Script" uid="uid://pcl3b2hwsi4l" path="res://utils/pickable.gd" id="1_4fj5y"]
+[ext_resource type="Script" path="res://Items/box.gd" id="1_0ksjg"]
+[ext_resource type="Script" path="res://utils/Components/pickable_component.gd" id="3_07nxi"]
 [ext_resource type="Texture2D" uid="uid://c3tomwohynnfp" path="res://assets/Decoration/Decals.png" id="3_8gsch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ygw2i"]
@@ -21,6 +21,6 @@ region_rect = Rect2(40.1786, 96.006, 15.8229, 15.7598)
 position = Vector2(0, -9.53674e-07)
 shape = SubResource("RectangleShape2D_ygw2i")
 
-[node name="Pickable" type="Node2D" parent="." node_paths=PackedStringArray("collision_shape")]
-script = ExtResource("1_4fj5y")
-collision_shape = NodePath("../CollisionShape2D")
+[node name="PickupableComponent" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("3_07nxi")
+parent = NodePath("..")

@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bay07aaixkryy"]
+[gd_scene load_steps=16 format=3 uid="uid://bay07aaixkryy"]
 
-[ext_resource type="Script" uid="uid://b2d64efkkkye2" path="res://PlayableCharacters/wisp.gd" id="1_hwrfy"]
+[ext_resource type="Script" path="res://PlayableCharacters/wisp.gd" id="1_hwrfy"]
 [ext_resource type="Texture2D" uid="uid://wxsb0xlqw16d" path="res://assets/wisp/wisp.png" id="2_indhq"]
-[ext_resource type="Script" uid="uid://pcl3b2hwsi4l" path="res://utils/pickable.gd" id="3_ajtn7"]
-[ext_resource type="Script" uid="uid://c4fu7qolsf66v" path="res://PlayableCharacters/physics_component.gd" id="4_k1xxv"]
+[ext_resource type="Script" path="res://PlayableCharacters/physics_component.gd" id="4_k1xxv"]
 [ext_resource type="PackedScene" uid="uid://bieirnvcwdyk8" path="res://utils/GravityArea/ForceField.tscn" id="5_41tvf"]
+[ext_resource type="Script" path="res://utils/Components/pickable_component.gd" id="5_vif4l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qutaa"]
 atlas = ExtResource("2_indhq")
@@ -66,6 +66,39 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.825688, 0.178899)
 script = SubResource("GDScript_dx6in")
 
+[sub_resource type="GDScript" id="GDScript_ucora"]
+script/source = "extends Node2D
+class_name Pickable
+
+@export var auto_disable_collision: bool = true
+@export var collision_shape: CollisionShape2D
+
+
+@onready var owner_node := get_parent() as PhysicsBody2D
+var _position_supplier: Callable
+var _picked_up := false
+
+func _ready():
+	
+	assert(collision_shape, \"Link to collision shape\")
+	owner_node.add_to_group(\"pickables\")
+
+func _physics_process(delta: float):
+	if _picked_up and _position_supplier and _position_supplier.is_valid():
+		owner_node.Transform.Position = _position_supplier.call()
+
+func pick_up(position_supplier: Callable) -> void:
+	_position_supplier = position_supplier
+	_picked_up = true
+	# owner_node.set_freeze_enabled(true)
+	# collision_shape.disabled = true
+
+func drop() -> void:
+	_picked_up = false
+	# owner_node.set_freeze_enabled(false)
+	# collision_shape.disabled = false
+"
+
 [node name="Wisp" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 5
@@ -95,7 +128,7 @@ texture = SubResource("GradientTexture2D_gvx0y")
 texture_scale = 0.1
 
 [node name="Pickable" type="Node2D" parent="." node_paths=PackedStringArray("collision_shape")]
-script = ExtResource("3_ajtn7")
+script = SubResource("GDScript_ucora")
 collision_shape = NodePath("../CollisionShape2D")
 
 [node name="PhysicsComponent" type="Node" parent="."]
@@ -106,3 +139,7 @@ collision_layer = 8
 collision_mask = 8
 force_field_strength = 10000
 exclude_body = NodePath("..")
+
+[node name="PickupableComponent" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("5_vif4l")
+parent = NodePath("..")
